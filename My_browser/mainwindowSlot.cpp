@@ -14,5 +14,11 @@ void My_browser::on_refreshButton_click()
 }
 void My_browser::on_goButton_click()
 {
-
+	QString url = line->text();
+	if (!url.startsWith("http://") && !url.startsWith("https://"))
+	{
+		url = "http://" + url;
+	}
+	line->setText(url);
+	webview->load(QUrl(url));
 }
