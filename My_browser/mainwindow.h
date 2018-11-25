@@ -9,7 +9,10 @@
 #include <QTabWidget>
 #include <QMap>
 #include <QString>
-#include <QVBoxLayout>
+#include <QToolBar>
+#include <QHBoxLayout>
+#include <QLineEdit>
+#include <QPushButton>
 #include <webview.h>
 
 class My_browser : public QMainWindow
@@ -24,6 +27,8 @@ private:
 	/*data memory*/
 	WebView* webview;
 	QMenuBar* mb;
+	QToolBar* tb;
+	QLineEdit* line;
 	/*method*/
 	My_browser(QWidget* parent = nullptr);
 	void resizeEvent(QResizeEvent* event);
@@ -31,7 +36,12 @@ private:
 	bool constrcut();
 	bool initMenuBar();
 	bool initOptionMenu(QMenuBar*);
-	bool makeAction(QAction*& , QWidget* , QString t, int );
+
+	bool initToolBar();
+	bool initToolBarItem(QToolBar* );
+	bool makeToolBatItem(QPushButton*&,QHBoxLayout*, QString);
+
+	bool makeAction(QAction*& , QWidget* , QString , int );
 
 	bool initWebEngView();
 

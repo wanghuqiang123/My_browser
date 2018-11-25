@@ -1,4 +1,8 @@
 <RCC>
-    <qresource prefix="My_browser">
+    <qresource prefix="/My_browser">
+        <file>Icon/go-bottom.png</file>
+        <file>Icon/go-next.png</file>
+        <file>Icon/go-previous.png</file>
+        <file>Icon/view-refresh.png</file>
     </qresource>
 </RCC>

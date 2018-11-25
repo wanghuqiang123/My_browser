@@ -39,6 +39,9 @@
     <ClCompile Include="webview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mainwindowSlot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="My_browser.qrc">
