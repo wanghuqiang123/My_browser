@@ -114,7 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="mainwindowUI.cpp" />
     <ClCompile Include="mainwindowSlot.cpp" />
     <ClCompile Include="webview.cpp" />
   </ItemGroup>

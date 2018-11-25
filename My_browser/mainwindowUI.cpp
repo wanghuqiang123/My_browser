@@ -2,7 +2,7 @@
 
 My_browser::My_browser(QWidget* parent):QMainWindow(parent)
 {
-	resize(1200, 600);
+	resize(1000, 600);
 }
 
 My_browser* My_browser::NewInstance()
@@ -101,28 +101,37 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 		ret = ret && makeToolBatItem(btn,layout,":/My_browser/Icon/go-previous.png");
 		if(ret)
 		{
-			
+			connect(btn, SIGNAL(clicked(bool)), this,SLOT(on_backButton_click()));
 		}
 
 		ret = ret && makeToolBatItem(btn, layout, ":/My_browser/Icon/go-next.png");
 		if(ret)
 		{
-
+			connect(btn, SIGNAL(clicked(bool)), this, SLOT(on_forwardButton_click()));
 		}
 
 		ret = ret && makeToolBatItem(btn, layout, ":/My_browser/Icon/view-refresh.png");
 		if (ret)
 		{
-			
+			connect(btn, SIGNAL(clicked(bool)), this, SLOT(on_refreshButton_click()));
 		}
 
 		layout->addWidget(line);  //在这里加入文本框，用于输入地址使用
 
+		ret = ret && makeToolBatItem(btn, layout, ""); 
+		//这里有点特殊，因为在制造函数中去掉了了按钮的tip标示，所以在下面重新附一个文本在按钮上显示
+		if (ret)
+		{
+			btn->setText("Go");
+			connect(btn, SIGNAL(clicked(bool)), this, SLOT(on_goButton_click()));
+		}
+
 		ret = ret && makeToolBatItem(btn, layout, ":/My_browser/Icon/go-bottom.png");
 		if (ret)
 		{
-
+			
 		}
+
 		if(ret)
 		{
 			
@@ -191,7 +200,7 @@ bool My_browser::makeToolBatItem(QPushButton*& btn,QHBoxLayout* layout , QString
 
 	return ret;
 }
-
+//这里很重要，因为webview显示的网页默认大小，必须在这里让网页大小和窗口大小一致，不然会出bug
 void My_browser::resizeEvent(QResizeEvent* event)
 {
 	webview->resize(this->centralWidget()->size());

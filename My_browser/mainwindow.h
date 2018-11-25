@@ -39,11 +39,15 @@ private:
 
 	bool initToolBar();
 	bool initToolBarItem(QToolBar* );
-	bool makeToolBatItem(QPushButton*&,QHBoxLayout*, QString);
+	bool makeToolBatItem(QPushButton*&,QHBoxLayout*,QString);
 
 	bool makeAction(QAction*& , QWidget* , QString , int );
 
 	bool initWebEngView();
-
-
+protected slots:
+	/*slot function*/
+	void on_backButton_click();
+	void on_forwardButton_click();
+	void on_refreshButton_click();
+	void on_goButton_click();
 };
