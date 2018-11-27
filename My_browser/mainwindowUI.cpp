@@ -52,6 +52,7 @@ bool My_browser::initOptionMenu(QMenuBar* mb)
 		if (ret)
 		{
 			menu->addAction(action);
+			connect(action, SIGNAL(triggered(bool)), this, SLOT(onQuitSlot()));
 		}
 	}
 
@@ -91,6 +92,8 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 	bool ret = true;
 
 	line = new QLineEdit(this);
+	line->installEventFilter(this);
+
 	QWidget* w = new QWidget(tb);
 	QHBoxLayout* layout = new QHBoxLayout(w); //增加水平布局管理器
 
@@ -126,10 +129,11 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 			connect(btn, SIGNAL(clicked(bool)), this, SLOT(on_goButton_click()));
 		}
 
+		//此下载按钮的功能是显示出下载的内容 的窗口，现在对应带槽函数还没实现
 		ret = ret && makeToolBatItem(btn, layout, ":/My_browser/Icon/go-bottom.png");
 		if (ret)
 		{
-			
+			connect(btn, SIGNAL(clicked(bool)), this, SLOT(on_goButtomBtn_click()));
 		}
 
 		if(ret)
@@ -149,10 +153,10 @@ bool My_browser::initWebEngView()
 {
 	bool ret = true;
 
-	webview = new WebView(this);
+	webview = new WebView(this);//此处指针this父类也可以
 	if (webview != NULL)
 	{
-		webview->load(QUrl("http://www.baidu.com"));
+		//webview->load(QUrl("http://www.baidu.com"));
 		setCentralWidget(webview);    //关键步骤
 	}
 	else
@@ -204,6 +208,24 @@ bool My_browser::makeToolBatItem(QPushButton*& btn,QHBoxLayout* layout , QString
 void My_browser::resizeEvent(QResizeEvent* event)
 {
 	webview->resize(this->centralWidget()->size());
+}
+
+bool My_browser::eventFilter(QObject* target, QEvent* event)
+{
+	if (target == this->line)
+	{
+		if (event->type() == QEvent::KeyPress)
+		{
+			QKeyEvent *k = dynamic_cast<QKeyEvent *>(event);
+			if (k->key() == Qt::Key_Return)
+			{
+				on_goButton_click();
+				return true;
+			}
+		}
+	}
+
+	return QMainWindow::eventFilter(target, event);
 }
 
 My_browser::~My_browser()

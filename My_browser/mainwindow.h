@@ -13,7 +13,10 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QEvent>
+#include <QKeyEvent>
 #include <webview.h>
+
 
 class My_browser : public QMainWindow
 {
@@ -44,10 +47,15 @@ private:
 	bool makeAction(QAction*& , QWidget* , QString , int );
 
 	bool initWebEngView();
+protected:
+	bool eventFilter(QObject* target, QEvent* event);
 protected slots:
 	/*slot function*/
 	void on_backButton_click();
 	void on_forwardButton_click();
 	void on_refreshButton_click();
 	void on_goButton_click();
+	void on_goButtomBtn_click();
+
+	void onQuitSlot();
 };
