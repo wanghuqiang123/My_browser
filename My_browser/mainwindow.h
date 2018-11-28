@@ -11,10 +11,13 @@
 #include <QString>
 #include <QToolBar>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QProgressBar>
+#include <QDockWidget>
 #include <webview.h>
 
 
@@ -29,26 +32,26 @@ public:
 private:
 	/*data memory*/
 	WebView* webview;
-	QMenuBar* mb;
 	QToolBar* tb;
 	QLineEdit* line;
+	QProgressBar* PB;
 	/*method*/
 	My_browser(QWidget* parent = nullptr);
 	void resizeEvent(QResizeEvent* event);
 
 	bool constrcut();
-	bool initMenuBar();
-	bool initOptionMenu(QMenuBar*);
 
 	bool initToolBar();
 	bool initToolBarItem(QToolBar* );
 	bool makeToolBatItem(QPushButton*&,QHBoxLayout*,QString);
 
-	bool makeAction(QAction*& , QWidget* , QString , int );
+	bool initProgressBar(QVBoxLayout*);
 
 	bool initWebEngView();
-protected:
-	bool eventFilter(QObject* target, QEvent* event);
+/*protected:
+	bool eventFilter(QObject* target, QEvent* event);ÊÂ¼þ¹ýÂË
+*/
+
 protected slots:
 	/*slot function*/
 	void on_backButton_click();
@@ -56,6 +59,5 @@ protected slots:
 	void on_refreshButton_click();
 	void on_goButton_click();
 	void on_goButtomBtn_click();
-
-	void onQuitSlot();
+	void webviewLoding(int);
 };

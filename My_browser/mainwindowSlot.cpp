@@ -10,7 +10,6 @@ void My_browser::on_forwardButton_click()
 	webview->forward();
 }
 
-
 void My_browser::on_refreshButton_click()
 {
 	webview->reload();
@@ -27,11 +26,12 @@ void My_browser::on_goButton_click()
 	webview->load(QUrl(url));
 }
 
-void My_browser::onQuitSlot()
-{
-	close();
-}
 void My_browser::on_goButtomBtn_click()
 {
 	
+}
+
+void My_browser::webviewLoding(int progress)
+{
+	PB->setValue(progress);
 }

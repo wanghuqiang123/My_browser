@@ -22,58 +22,17 @@ bool My_browser::constrcut()
 {
 	bool ret = true;
 	
-	ret = ret && initMenuBar();
 	ret = ret && initToolBar();
 	ret = ret && initWebEngView();
 
 	return ret;
 }
-bool My_browser::initMenuBar()
-{
-	bool ret = true;
-	
-	QMenuBar* mb = menuBar();
-	
-	ret = ret && initOptionMenu(mb);
 
-	return ret;
-}
-
-bool My_browser::initOptionMenu(QMenuBar* mb)
-{
-	QMenu* menu = new QMenu("Option", mb);
-	bool ret = (menu != NULL);
-
-	if (ret)
-	{
-		QAction* action = NULL;
-
-		ret = ret && makeAction(action, menu, "Quit", 0);
-		if (ret)
-		{
-			menu->addAction(action);
-			connect(action, SIGNAL(triggered(bool)), this, SLOT(onQuitSlot()));
-		}
-	}
-
-	/**/
-	if (ret)
-	{
-		mb->addMenu(menu);
-
-	}
-	else
-	{
-		delete menu;
-	}
-
-	return ret;
-}
 
 bool My_browser::initToolBar()
 {
 	bool ret = true;
-	tb = new QToolBar();
+	tb = new QToolBar("TopToolBar");
 
 	if (tb == NULL || !initToolBarItem(tb))
 	{
@@ -87,17 +46,20 @@ bool My_browser::initToolBar()
 	return ret;
 }
 
+
 bool My_browser::initToolBarItem(QToolBar* tb)
 {
 	bool ret = true;
 
 	line = new QLineEdit(this);
-	line->installEventFilter(this);
+	//line->installEventFilter(this);  安装事件过滤器
 
 	QWidget* w = new QWidget(tb);
-	QHBoxLayout* layout = new QHBoxLayout(w); //增加水平布局管理器
+	
+	QVBoxLayout* VLayout = new QVBoxLayout(w);
+	QHBoxLayout* layout = new QHBoxLayout(); //增加水平布局管理器
 
-	if (line != NULL && w != NULL && layout != NULL)
+	if (line != NULL && w != NULL && layout != NULL && VLayout != NULL)
 	{
 		QPushButton* btn = NULL;
 
@@ -120,6 +82,7 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 		}
 
 		layout->addWidget(line);  //在这里加入文本框，用于输入地址使用
+		connect(line, SIGNAL(returnPressed()), this, SLOT(on_goButton_click()));//当用户按下Enter键的时候
 
 		ret = ret && makeToolBatItem(btn, layout, ""); 
 		//这里有点特殊，因为在制造函数中去掉了了按钮的tip标示，所以在下面重新附一个文本在按钮上显示
@@ -136,6 +99,9 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 			connect(btn, SIGNAL(clicked(bool)), this, SLOT(on_goButtomBtn_click()));
 		}
 
+		VLayout->addLayout(layout);//将水平布局管理器加入其中；
+
+		ret = ret && initProgressBar(VLayout);//make ProgressBar
 		if(ret)
 		{
 			
@@ -149,15 +115,23 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 	return ret;
 }
 
-bool My_browser::initWebEngView()
+bool My_browser::initProgressBar(QVBoxLayout* layout)
 {
 	bool ret = true;
 
-	webview = new WebView(this);//此处指针this父类也可以
-	if (webview != NULL)
+	if (layout != NULL)
 	{
-		//webview->load(QUrl("http://www.baidu.com"));
-		setCentralWidget(webview);    //关键步骤
+		PB = new QProgressBar();
+		if (PB != NULL)
+		{
+			PB->setMaximumHeight(10);
+
+			layout->addWidget(PB);
+		}
+		else
+		{
+			ret = false;
+		}
 	}
 	else
 	{
@@ -167,16 +141,17 @@ bool My_browser::initWebEngView()
 	return ret;
 }
 
-
-bool My_browser::makeAction(QAction*& action, QWidget* parent, QString text, int short_key)
+bool My_browser::initWebEngView()
 {
 	bool ret = true;
 
-	action = new QAction(text, parent);
-
-	if (action != NULL)
+	webview = new WebView(this);//此处指针this父类也可以
+	if (webview != NULL)
 	{
-		action->setShortcut(QKeySequence(short_key));
+		//webview->load(QUrl("http://www.baidu.com"));
+		setCentralWidget(webview);    //关键步骤
+
+		connect(webview, SIGNAL(loadProgress(int)),this,SLOT(webviewLoding(int)));
 	}
 	else
 	{
@@ -210,7 +185,7 @@ void My_browser::resizeEvent(QResizeEvent* event)
 	webview->resize(this->centralWidget()->size());
 }
 
-bool My_browser::eventFilter(QObject* target, QEvent* event)
+/*bool My_browser::eventFilter(QObject* target, QEvent* event)
 {
 	if (target == this->line)
 	{
@@ -226,7 +201,7 @@ bool My_browser::eventFilter(QObject* target, QEvent* event)
 	}
 
 	return QMainWindow::eventFilter(target, event);
-}
+}*/
 
 My_browser::~My_browser()
 {
