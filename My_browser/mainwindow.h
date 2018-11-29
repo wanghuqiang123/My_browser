@@ -18,7 +18,11 @@
 #include <QKeyEvent>
 #include <QProgressBar>
 #include <QDockWidget>
-#include <webview.h>
+#include <QKeySequence>
+#include <QPrinter>
+#include <QPrinter>
+#include <QPrintDialog>
+#include "webview.h"
 
 
 class My_browser : public QMainWindow
@@ -41,6 +45,9 @@ private:
 
 	bool constrcut();
 
+	bool initMenuItem(QPushButton* btn);
+	bool makeAction(QAction*&, QWidget* , QString , int );
+
 	bool initToolBar();
 	bool initToolBarItem(QToolBar* );
 	bool makeToolBatItem(QPushButton*&,QHBoxLayout*,QString);
@@ -58,6 +65,7 @@ protected slots:
 	void on_forwardButton_click();
 	void on_refreshButton_click();
 	void on_goButton_click();
-	void on_goButtomBtn_click();
 	void webviewLoding(int);
+
+	void webview_PagePrint();
 };

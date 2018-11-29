@@ -1,2 +1,6 @@
-﻿  mainwindowUI.cpp
+﻿  Moc'ing mainwindow.h...
+  moc_mainwindow.cpp
+  main.cpp
+  mainwindowSlot.cpp
+  mainwindowUI.cpp
   My_browser.vcxproj -> C:\Qt\QT_file\VS_Qt\My_browser\x64\Debug\My_browser.exe

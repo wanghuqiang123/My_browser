@@ -96,7 +96,7 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 		ret = ret && makeToolBatItem(btn, layout, ":/My_browser/Icon/go-bottom.png");
 		if (ret)
 		{
-			connect(btn, SIGNAL(clicked(bool)), this, SLOT(on_goButtomBtn_click()));
+			initMenuItem(btn);
 		}
 
 		VLayout->addLayout(layout);//将水平布局管理器加入其中；
@@ -111,6 +111,32 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 	else
 	{
 		ret = false;
+	}
+	return ret;
+}
+
+bool My_browser::initMenuItem(QPushButton* btn)
+{
+	QMenu* menu = new QMenu(btn);
+	bool ret = (menu != NULL);
+	if (ret)
+	{
+		QAction* action = NULL;
+		
+		ret = ret && makeAction(action, menu, "Print(P)", Qt::CTRL + Qt::Key_P);
+		if (ret)
+		{
+			connect(action, SIGNAL(triggered(bool)), this, SLOT(webview_PagePrint()));
+			menu->addAction(action);
+		}
+	}
+	if (ret)
+	{
+		btn->setMenu(menu);
+	}
+	else
+	{
+		delete menu;
 	}
 	return ret;
 }
@@ -176,6 +202,24 @@ bool My_browser::makeToolBatItem(QPushButton*& btn,QHBoxLayout* layout , QString
     {
         ret = false;
     }
+
+	return ret;
+}
+
+bool My_browser::makeAction(QAction*& action, QWidget* parent, QString text, int key)
+{
+	bool ret = true;
+
+	action = new QAction(text, parent);
+
+	if (action != NULL)
+	{
+		action->setShortcut(QKeySequence(key));
+	}
+	else
+	{
+		ret = false;
+	}
 
 	return ret;
 }
