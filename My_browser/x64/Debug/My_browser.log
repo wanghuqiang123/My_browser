@@ -1,6 +1,6 @@
-﻿  Moc'ing mainwindow.h...
-  moc_mainwindow.cpp
+﻿  History.cpp
   main.cpp
-  mainwindowSlot.cpp
   mainwindowUI.cpp
+  mainwindowSlot.cpp
+  moc_mainwindow.cpp
   My_browser.vcxproj -> C:\Qt\QT_file\VS_Qt\My_browser\x64\Debug\My_browser.exe

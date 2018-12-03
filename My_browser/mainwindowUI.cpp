@@ -22,8 +22,9 @@ bool My_browser::constrcut()
 {
 	bool ret = true;
 	
-	ret = ret && initToolBar();
 	ret = ret && initWebEngView();
+	ret = ret && initToolBar();
+	
 
 	return ret;
 }
@@ -104,7 +105,6 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 		ret = ret && initProgressBar(VLayout);//make ProgressBar
 		if(ret)
 		{
-			
 			tb->addWidget(w);
 		}
 	}
@@ -118,17 +118,25 @@ bool My_browser::initToolBarItem(QToolBar* tb)
 bool My_browser::initMenuItem(QPushButton* btn)
 {
 	QMenu* menu = new QMenu(btn);
+	
 	bool ret = (menu != NULL);
 	if (ret)
 	{
 		QAction* action = NULL;
 		
+		ret = ret && initSubHistoryMenu(menu);
+		if (ret)
+		{
+			menu->addSeparator();
+		}
+
 		ret = ret && makeAction(action, menu, "Print(P)", Qt::CTRL + Qt::Key_P);
 		if (ret)
 		{
 			connect(action, SIGNAL(triggered(bool)), this, SLOT(webview_PagePrint()));
 			menu->addAction(action);
 		}
+		
 	}
 	if (ret)
 	{
@@ -138,6 +146,17 @@ bool My_browser::initMenuItem(QPushButton* btn)
 	{
 		delete menu;
 	}
+	return ret;
+}
+
+bool My_browser::initSubHistoryMenu(QMenu* menu)
+{
+	bool ret = true;
+	
+	m_history = new History();
+	m_history->setHistoryPoint(webview->page()->history());
+	menu->addMenu(m_history);
+
 	return ret;
 }
 
@@ -174,10 +193,12 @@ bool My_browser::initWebEngView()
 	webview = new WebView(this);//此处指针this父类也可以
 	if (webview != NULL)
 	{
-		//webview->load(QUrl("http://www.baidu.com"));
 		setCentralWidget(webview);    //关键步骤
-
+	
 		connect(webview, SIGNAL(loadProgress(int)),this,SLOT(webviewLoding(int)));
+		connect(webview, SIGNAL(loadStarted()), this, SLOT(webview_History()));
+		
+		webview->load(QUrl("http://www.baidu.com"));//试验作用
 	}
 	else
 	{

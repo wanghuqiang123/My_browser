@@ -24,12 +24,14 @@ void My_browser::on_goButton_click()
 	}
 	//line->setText(url);
 	webview->load(QUrl(url));
+
 }
 
 void My_browser::webviewLoding(int progress)
 {
 	PB->setValue(progress);
 	line->setText(webview->url().toString());  //将文本框中的网址显示为真实网址
+	m_history->resetActions();
 }
 
 void My_browser::webview_PagePrint()
@@ -44,4 +46,9 @@ void My_browser::webview_PagePrint()
 		//将编辑器中的内容传给打印机打印，第二个参数这里用到了lambda语法，因为在QWebEngine这里需要一个回调函数
 		webview->page()->print(p, [=](bool) {});
 	}
+}
+
+void My_browser::webview_History()
+{
+	
 }

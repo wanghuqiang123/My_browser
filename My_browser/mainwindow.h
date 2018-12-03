@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include <QWebEngineView>
+#include <QWebEnginePage>
 #include <QAction>
 #include <QMenuBar>
 #include <QUrl>
@@ -22,7 +23,9 @@
 #include <QPrinter>
 #include <QPrinter>
 #include <QPrintDialog>
+#include <QList>
 #include "webview.h"
+#include "History.h"
 
 
 class My_browser : public QMainWindow
@@ -39,6 +42,7 @@ private:
 	QToolBar* tb;
 	QLineEdit* line;
 	QProgressBar* PB;
+	History* m_history;
 	/*method*/
 	My_browser(QWidget* parent = nullptr);
 	void resizeEvent(QResizeEvent* event);
@@ -55,6 +59,8 @@ private:
 	bool initProgressBar(QVBoxLayout*);
 
 	bool initWebEngView();
+
+	bool initSubHistoryMenu(QMenu*);
 /*protected:
 	bool eventFilter(QObject* target, QEvent* event);ÊÂ¼þ¹ýÂË
 */
@@ -68,4 +74,5 @@ protected slots:
 	void webviewLoding(int);
 
 	void webview_PagePrint();
+	void webview_History();
 };
