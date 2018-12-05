@@ -156,7 +156,9 @@ bool My_browser::initSubHistoryMenu(QMenu* menu)
 	m_history = new History();
 	m_history->setHistoryPoint(webview->page()->history());
 	menu->addMenu(m_history);
-
+	
+	connect(m_history, SIGNAL(SendToMainUrl(const QUrl&)), this, SLOT(recive_url_fromhistory(const QUrl&)));
+	
 	return ret;
 }
 
@@ -195,8 +197,8 @@ bool My_browser::initWebEngView()
 	{
 		setCentralWidget(webview);    //关键步骤
 	
-		connect(webview, SIGNAL(loadProgress(int)),this,SLOT(webviewLoding(int)));
-		connect(webview, SIGNAL(loadStarted()), this, SLOT(webview_History()));
+		connect(webview, SIGNAL(loadProgress(int)),this,SLOT(webviewLoding (int)));
+		//connect(webview, SIGNAL(loadStarted()), this, SLOT(webview_History()));
 		
 		webview->load(QUrl("http://www.baidu.com"));//试验作用
 	}

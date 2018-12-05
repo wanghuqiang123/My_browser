@@ -31,7 +31,9 @@ void My_browser::webviewLoding(int progress)
 {
 	PB->setValue(progress);
 	line->setText(webview->url().toString());  //将文本框中的网址显示为真实网址
-	m_history->resetActions();
+	
+	//添加历史记录
+	m_history->addHistoryAction();
 }
 
 void My_browser::webview_PagePrint()
@@ -48,7 +50,11 @@ void My_browser::webview_PagePrint()
 	}
 }
 
-void My_browser::webview_History()
+void My_browser::recive_url_fromhistory(const QUrl& url)
 {
-	
+	webview->load(url);
 }
+/*void My_browser::webview_History()
+{
+	//m_history->resetActions();
+}*/

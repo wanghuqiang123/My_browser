@@ -74,5 +74,6 @@ protected slots:
 	void webviewLoding(int);
 
 	void webview_PagePrint();
-	void webview_History();
+	void recive_url_fromhistory(const QUrl&);
+	//void webview_History();
 };

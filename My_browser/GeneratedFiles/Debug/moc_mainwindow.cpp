@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_My_browser_t {
     QByteArrayData data[9];
-    char stringdata0[144];
+    char stringdata0[151];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,13 +39,13 @@ QT_MOC_LITERAL(4, 55, 22), // "on_refreshButton_click"
 QT_MOC_LITERAL(5, 78, 17), // "on_goButton_click"
 QT_MOC_LITERAL(6, 96, 13), // "webviewLoding"
 QT_MOC_LITERAL(7, 110, 17), // "webview_PagePrint"
-QT_MOC_LITERAL(8, 128, 15) // "webview_History"
+QT_MOC_LITERAL(8, 128, 22) // "recive_url_fromhistory"
 
     },
     "My_browser\0on_backButton_click\0\0"
     "on_forwardButton_click\0on_refreshButton_click\0"
     "on_goButton_click\0webviewLoding\0"
-    "webview_PagePrint\0webview_History"
+    "webview_PagePrint\0recive_url_fromhistory"
 };
 #undef QT_MOC_LITERAL
 
@@ -69,7 +69,7 @@ static const uint qt_meta_data_My_browser[] = {
        5,    0,   52,    2, 0x09 /* Protected */,
        6,    1,   53,    2, 0x09 /* Protected */,
        7,    0,   56,    2, 0x09 /* Protected */,
-       8,    0,   57,    2, 0x09 /* Protected */,
+       8,    1,   57,    2, 0x09 /* Protected */,
 
  // slots: parameters
     QMetaType::Void,
@@ -78,7 +78,7 @@ static const uint qt_meta_data_My_browser[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
     QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QUrl,    2,
 
        0        // eod
 };
@@ -95,7 +95,7 @@ void My_browser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->on_goButton_click(); break;
         case 4: _t->webviewLoding((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->webview_PagePrint(); break;
-        case 6: _t->webview_History(); break;
+        case 6: _t->recive_url_fromhistory((*reinterpret_cast< const QUrl(*)>(_a[1]))); break;
         default: ;
         }
     }
