@@ -154,11 +154,11 @@ bool My_browser::initSubHistoryMenu(QMenu* menu)
 	bool ret = true;
 	
 	m_history = new History();
-	m_history->setHistoryPoint(webview->page()->history());
+	m_history->setHistoryPoint(webview->page()->history());  //将web视图中的页面的历史记录对象的指针给予m_history
 	menu->addMenu(m_history);
 	
 	connect(m_history, SIGNAL(SendToMainUrl(const QUrl&)), this, SLOT(recive_url_fromhistory(const QUrl&)));
-	
+
 	return ret;
 }
 
@@ -172,7 +172,10 @@ bool My_browser::initProgressBar(QVBoxLayout* layout)
 		if (PB != NULL)
 		{
 			PB->setMaximumHeight(10);
-
+			//当加载完成后，进度条隐藏；这里用的lambda表达式
+			/*connect(webview, &QWebEngineView::loadFinished, [this]() { PB->setVisible(false); });
+			connect(webview, &QWebEngineView::loadStarted, [this]() {PB->show(); });*/
+			
 			layout->addWidget(PB);
 		}
 		else
@@ -198,7 +201,7 @@ bool My_browser::initWebEngView()
 		setCentralWidget(webview);    //关键步骤
 	
 		connect(webview, SIGNAL(loadProgress(int)),this,SLOT(webviewLoding (int)));
-		//connect(webview, SIGNAL(loadStarted()), this, SLOT(webview_History()));
+		connect(webview, SIGNAL(loadProgress(int)), this, SLOT(webview_History()));
 		
 		webview->load(QUrl("http://www.baidu.com"));//试验作用
 	}
@@ -247,10 +250,10 @@ bool My_browser::makeAction(QAction*& action, QWidget* parent, QString text, int
 	return ret;
 }
 //这里很重要，因为webview显示的网页默认大小，必须在这里让网页大小和窗口大小一致，不然会出bug
-void My_browser::resizeEvent(QResizeEvent* event)
-{
-	webview->resize(this->centralWidget()->size());
-}
+//void My_browser::resizeEvent(QResizeEvent* event)
+//{
+//	webview->resize(this->centralWidget()->size());
+//}
 
 /*bool My_browser::eventFilter(QObject* target, QEvent* event)
 {

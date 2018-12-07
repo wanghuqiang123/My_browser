@@ -1,11 +1,12 @@
 #include "History.h"
 
+
 History::History(QMenu* parent)
-		:QMenu(parent)
-		,m_history(NULL)
+	:QMenu(parent)
+	, m_history(NULL)
 {
 	setTitle("History");
-	clear();
+	makeClearAction();
 }
 
 bool History::setHistoryPoint(QWebEngineHistory* p)
@@ -46,6 +47,20 @@ void History::ReciveUrlFromAction(const QString& s)
 {
 	QUrl url = historys_data[s];
 	emit SendToMainUrl(url);
+}
+
+void History::makeClearAction()
+{
+	QAction* action = addAction("Clear History");
+	connect(action, SIGNAL(triggered(bool)), this, SLOT(ClearHisyory()));
+}
+
+void History::ClearHisyory()
+{ //此函数的功能是清除历史记录；
+	clear();		//清楚这之中的actionm
+	makeClearAction();
+	m_history->clear();		//清除web视图中的历史记录
+	historys_data.clear();
 }
 
 History::~History()

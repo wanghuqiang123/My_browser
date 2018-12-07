@@ -1,5 +1,5 @@
 #pragma once
-
+/*È¡Ïû×¢ÊÍ  ctrl + k + u*/
 #include <QMainWindow>
 #include <QWebEngineView>
 #include <QWebEnginePage>
@@ -7,7 +7,6 @@
 #include <QMenuBar>
 #include <QUrl>
 #include <QMenu>
-#include <QTabWidget>
 #include <QMap>
 #include <QString>
 #include <QToolBar>
@@ -26,6 +25,7 @@
 #include <QList>
 #include "webview.h"
 #include "History.h"
+#include "webTabWidget.h"
 
 
 class My_browser : public QMainWindow
@@ -43,9 +43,11 @@ private:
 	QLineEdit* line;
 	QProgressBar* PB;
 	History* m_history;
+
+	QVector<webTabWidget*>m_tabs;
 	/*method*/
 	My_browser(QWidget* parent = nullptr);
-	void resizeEvent(QResizeEvent* event);
+	//void resizeEvent(QResizeEvent* event);
 
 	bool constrcut();
 
@@ -75,5 +77,5 @@ protected slots:
 
 	void webview_PagePrint();
 	void recive_url_fromhistory(const QUrl&);
-	//void webview_History();
+	void webview_History();
 };

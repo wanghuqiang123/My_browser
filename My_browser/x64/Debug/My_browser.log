@@ -1,10 +1,2 @@
-﻿  Moc'ing HistoryAction.h...
-  moc_History.cpp
-  moc_HistoryAction.cpp
-  moc_mainwindow.cpp
-  History.cpp
-  HistoryAction.cpp
-  main.cpp
-  mainwindowSlot.cpp
-  mainwindowUI.cpp
+﻿  mainwindowUI.cpp
   My_browser.vcxproj -> C:\Qt\QT_file\VS_Qt\My_browser\x64\Debug\My_browser.exe

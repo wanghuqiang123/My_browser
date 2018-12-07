@@ -24,42 +24,11 @@ signals:
 	void SendToMainUrl(const QUrl& s);
 protected slots:
 	void ReciveUrlFromAction(const QString&);
+	void ClearHisyory();
 private:
-	/*struct history_struct
-	{
-		QString title;
-		QUrl url;
-		/*history_struct(const history_struct& rhs)
-		{
-			title = rhs.title;
-			url = rhs.url;
-		}
 
-		 history_struct(const QUrl& u)
-		{
-			url = u;
-		}
-		 history_struct(const QString& s, const QUrl& u)
-		{
-			title = s;
-			url = u;
-		}
-		history_struct& operator=(const history_struct& rhs)
-		{
-			title = rhs.title;
-			url = rhs.url;
-		}
+	void makeClearAction();
 
-		bool operator==(const history_struct& rhs)
-		{
-			bool ret = true;
-			if ( url != rhs.url)
-			{
-				ret = false;
-			}
-			return ret;
-		}
-	};*/
 	HistoryAction* makeHistoryAction(QString& );
 	QMap<QString,QUrl> historys_data;
 	QWebEngineHistory* m_history;

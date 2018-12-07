@@ -7,12 +7,12 @@ void My_browser::on_backButton_click()
 
 void My_browser::on_forwardButton_click()
 {
-	webview->forward();
+	//webview->forward();
 }
 
 void My_browser::on_refreshButton_click()
 {
-	webview->reload();
+	//webview->reload();
 }
 
 void My_browser::on_goButton_click()
@@ -23,17 +23,13 @@ void My_browser::on_goButton_click()
 		url = "http://" + url;
 	}
 	//line->setText(url);
-	webview->load(QUrl(url));
-
+	//webview->load(QUrl(url));
 }
 
 void My_browser::webviewLoding(int progress)
 {
 	PB->setValue(progress);
 	line->setText(webview->url().toString());  //将文本框中的网址显示为真实网址
-	
-	//添加历史记录
-	m_history->addHistoryAction();
 }
 
 void My_browser::webview_PagePrint()
@@ -54,7 +50,8 @@ void My_browser::recive_url_fromhistory(const QUrl& url)
 {
 	webview->load(url);
 }
-/*void My_browser::webview_History()
+void My_browser::webview_History()
 {
-	//m_history->resetActions();
-}*/
+	//添加历史记录
+	m_history->addHistoryAction();
+}
