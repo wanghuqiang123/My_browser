@@ -2,7 +2,7 @@
 
 void My_browser::on_backButton_click()
 {
-	webview->back();
+	//webview->back();
 }
 
 void My_browser::on_forwardButton_click()
@@ -22,16 +22,22 @@ void My_browser::on_goButton_click()
 	{
 		url = "http://" + url;
 	}
-	//line->setText(url);
 	//webview->load(QUrl(url));
 }
 
 void My_browser::webviewLoding(int progress)
 {
 	PB->setValue(progress);
-	line->setText(webview->url().toString());  //将文本框中的网址显示为真实网址
+	//line->setText(webview->url().toString());  //将文本框中的网址显示为真实网址
 }
 
+void My_browser::webviewloadcomplate(bool ok)
+{
+	if (ok)
+	{
+		PB->setVisible(false);
+	}
+}
 void My_browser::webview_PagePrint()
 {
 	QPrintDialog dlg(this);    //弹出打印对话框
@@ -42,16 +48,21 @@ void My_browser::webview_PagePrint()
 		QPrinter* p = dlg.printer();               //获取打印机对象
 
 		//将编辑器中的内容传给打印机打印，第二个参数这里用到了lambda语法，因为在QWebEngine这里需要一个回调函数
-		webview->page()->print(p, [=](bool) {});
+		//webview->page()->print(p, [=](bool) {});
 	}
 }
 
 void My_browser::recive_url_fromhistory(const QUrl& url)
 {
-	webview->load(url);
+	//webview->load(url);
 }
 void My_browser::webview_History()
 {
 	//添加历史记录
-	m_history->addHistoryAction();
+	//m_history->addHistoryAction();
+}
+
+void My_browser::browser_exit()
+{
+	close();
 }

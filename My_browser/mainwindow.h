@@ -43,11 +43,10 @@ private:
 	QLineEdit* line;
 	QProgressBar* PB;
 	History* m_history;
-
-	QVector<webTabWidget*>m_tabs;
+	webTabWidget* m_currenttab;
 	/*method*/
 	My_browser(QWidget* parent = nullptr);
-	//void resizeEvent(QResizeEvent* event);
+	inline void resizeEvent(QResizeEvent* event);
 
 	bool constrcut();
 
@@ -62,6 +61,8 @@ private:
 
 	bool initWebEngView();
 
+	bool initTab_webview();
+
 	bool initSubHistoryMenu(QMenu*);
 /*protected:
 	bool eventFilter(QObject* target, QEvent* event);ÊÂ¼þ¹ýÂË
@@ -74,8 +75,14 @@ protected slots:
 	void on_refreshButton_click();
 	void on_goButton_click();
 	void webviewLoding(int);
+	void webviewloadcomplate(bool);
 
 	void webview_PagePrint();
+	void browser_exit();
+
+	
+	
 	void recive_url_fromhistory(const QUrl&);
 	void webview_History();
+	
 };

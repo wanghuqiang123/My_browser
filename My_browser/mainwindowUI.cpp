@@ -22,7 +22,8 @@ bool My_browser::constrcut()
 {
 	bool ret = true;
 	
-	ret = ret && initWebEngView();
+	//ret = ret && initWebEngView();
+	ret = ret && initTab_webview();
 	ret = ret && initToolBar();
 	
 
@@ -124,11 +125,11 @@ bool My_browser::initMenuItem(QPushButton* btn)
 	{
 		QAction* action = NULL;
 		
-		ret = ret && initSubHistoryMenu(menu);
+		/*ret = ret && initSubHistoryMenu(menu);
 		if (ret)
 		{
 			menu->addSeparator();
-		}
+		}*/
 
 		ret = ret && makeAction(action, menu, "Print(P)", Qt::CTRL + Qt::Key_P);
 		if (ret)
@@ -136,7 +137,14 @@ bool My_browser::initMenuItem(QPushButton* btn)
 			connect(action, SIGNAL(triggered(bool)), this, SLOT(webview_PagePrint()));
 			menu->addAction(action);
 		}
-		
+
+		//退出选项
+		ret = ret && makeAction(action, menu, "Exit(E)", Qt::CTRL + Qt::SHIFT + Qt::Key_Q);
+		if (ret)
+		{
+			connect(action, SIGNAL(triggered(bool)), this, SLOT(browser_exit()));
+			menu->addAction(action);
+		}
 	}
 	if (ret)
 	{
@@ -173,8 +181,8 @@ bool My_browser::initProgressBar(QVBoxLayout* layout)
 		{
 			PB->setMaximumHeight(10);
 			//当加载完成后，进度条隐藏；这里用的lambda表达式
-			/*connect(webview, &QWebEngineView::loadFinished, [this]() { PB->setVisible(false); });
-			connect(webview, &QWebEngineView::loadStarted, [this]() {PB->show(); });*/
+			connect(m_currenttab, &webTabWidget::loadfinished, [this]() {PB->setVisible(false); });
+			connect(m_currenttab, &webTabWidget::startload, [this]() {PB->show(); });
 			
 			layout->addWidget(PB);
 		}
@@ -210,6 +218,25 @@ bool My_browser::initWebEngView()
 		ret = false;
 	}
 
+	return ret;
+}
+
+bool My_browser::initTab_webview()
+{
+	bool ret = true;
+	webTabWidget* tab = new webTabWidget();
+	if (tab && tab->createTabWebView())
+	{
+		m_currenttab = tab;
+		
+		setCentralWidget(tab);
+
+		connect(m_currenttab, SIGNAL(loadpressnum(int)),this,SLOT(webviewLoding(int)));
+	}
+	else
+	{
+		ret = false;
+	}
 	return ret;
 }
 
@@ -250,10 +277,10 @@ bool My_browser::makeAction(QAction*& action, QWidget* parent, QString text, int
 	return ret;
 }
 //这里很重要，因为webview显示的网页默认大小，必须在这里让网页大小和窗口大小一致，不然会出bug
-//void My_browser::resizeEvent(QResizeEvent* event)
-//{
-//	webview->resize(this->centralWidget()->size());
-//}
+void My_browser::resizeEvent(QResizeEvent* event)
+{
+	 m_currenttab->currentWidget()->resize(this->centralWidget()->size());
+}
 
 /*bool My_browser::eventFilter(QObject* target, QEvent* event)
 {

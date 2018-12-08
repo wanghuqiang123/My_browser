@@ -48,6 +48,9 @@
     <ClCompile Include="HistoryAction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="webTabWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="My_browser.qrc">
@@ -65,6 +68,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="HistoryAction.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="webTabWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -1,20 +1,29 @@
 #pragma once
 #include <QTabWidget>
 #include <QEvent>
+#include <QUrl>
+#include <QString>
+#include <QVector>
+#include <QIcon>
+#include <QTabBar>
 #include "webview.h"
 
 class webTabWidget :public QTabWidget
 {
+	Q_OBJECT
 public:
 	webTabWidget(QWidget* parent = nullptr);
 
+	bool createTabWebView();
+
 	virtual ~webTabWidget();
-
+signals:
+	void loadpressnum(int);
+	void loadfinished();
+	void startload();
 private:
-	WebView* webview;
-
-	WebView* createTabWebView();
-
-	inline void resizeEvent(QResizeEvent* e);
+	QVector<WebView*>m_webview;
+	bool setup_webview(WebView*);
+	void initTabWidget();
 };
 
