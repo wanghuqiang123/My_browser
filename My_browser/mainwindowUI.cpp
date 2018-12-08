@@ -225,7 +225,7 @@ bool My_browser::initTab_webview()
 {
 	bool ret = true;
 	webTabWidget* tab = new webTabWidget();
-	if (tab && tab->createTabWebView())
+	if (tab && (tab->createTabWebView() != nullptr))
 	{
 		m_currenttab = tab;
 		

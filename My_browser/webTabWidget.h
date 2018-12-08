@@ -8,13 +8,14 @@
 #include <QTabBar>
 #include "webview.h"
 
+class WebView;
 class webTabWidget :public QTabWidget
 {
 	Q_OBJECT
 public:
 	webTabWidget(QWidget* parent = nullptr);
 
-	bool createTabWebView();
+	WebView* createTabWebView();
 
 	virtual ~webTabWidget();
 signals:

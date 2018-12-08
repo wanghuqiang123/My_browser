@@ -2,11 +2,11 @@
 
 webTabWidget::webTabWidget(QWidget* parent):QTabWidget(parent)
 {
-	//initTabWidget();
+	initTabWidget();
 	setTabsClosable(true);
 
 	//设置头标签的尺寸
-	setStyleSheet("QTabBar::tab{width:200px;height:22px}");
+	setStyleSheet("QTabBar::tab{width:200px;height:30px}");
 }
 
 void webTabWidget::initTabWidget()
@@ -15,22 +15,21 @@ void webTabWidget::initTabWidget()
 		{removeTab(index); delete m_webview[index]; m_webview.remove(index); 
 	});
 }
-bool webTabWidget::createTabWebView()
+WebView* webTabWidget::createTabWebView()
 {
-	bool ret = true;
 	WebView* webview = new WebView();
 	if (webview != NULL)
 	{
+		webview->setWindowPoint(this);
+
 		addTab(webview,"loading...");
+		setCurrentWidget(webview);
+
 		m_webview.push_back(webview);
 		setup_webview(webview);
 		webview->load(QUrl("http://www.baidu.com"));
 	}
-	else
-	{
-		ret = false;
-	}
-	return ret;
+	return webview;
 }
 
 bool webTabWidget::setup_webview(WebView* webview)
@@ -50,8 +49,8 @@ bool webTabWidget::setup_webview(WebView* webview)
 		int index = currentIndex();
 		setTabText(index, webview->title());//set currentWidgetTab webview title
 		emit loadfinished();
-		}	}
-	);
+		}	
+	});
 	connect(webview, &QWebEngineView::loadStarted, [this]() 
 		{emit startload(); 
 	});
