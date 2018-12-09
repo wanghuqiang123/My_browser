@@ -4,5 +4,6 @@
         <file>Icon/go-next.png</file>
         <file>Icon/go-previous.png</file>
         <file>Icon/view-refresh.png</file>
+        <file>Icon/loading.gif</file>
     </qresource>
 </RCC>

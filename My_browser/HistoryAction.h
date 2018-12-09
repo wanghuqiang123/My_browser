@@ -2,6 +2,7 @@
 #include <QAction>
 #include <QString>
 #include <QEvent>
+#include <QUrl>
 
 class HistoryAction :public QAction
 {

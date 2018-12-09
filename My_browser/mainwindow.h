@@ -59,7 +59,7 @@ private:
 
 	bool initProgressBar(QVBoxLayout*);
 
-	bool initWebEngView();
+	//bool initWebEngView();
 
 	bool initTab_webview();
 
@@ -75,7 +75,6 @@ protected slots:
 	void on_refreshButton_click();
 	void on_goButton_click();
 	void webviewLoding(int);
-	void webviewloadcomplate(bool);
 
 	void webview_PagePrint();
 	void browser_exit();
@@ -83,6 +82,6 @@ protected slots:
 	
 	
 	void recive_url_fromhistory(const QUrl&);
-	void webview_History();
+	void webview_History(QString&,QUrl&);
 	
 };

@@ -23,10 +23,9 @@ bool My_browser::constrcut()
 	bool ret = true;
 	
 	//ret = ret && initWebEngView();
-	ret = ret && initTab_webview();
+	ret = ret && initTab_webview();  //先初始化web页面
 	ret = ret && initToolBar();
 	
-
 	return ret;
 }
 
@@ -125,11 +124,11 @@ bool My_browser::initMenuItem(QPushButton* btn)
 	{
 		QAction* action = NULL;
 		
-		/*ret = ret && initSubHistoryMenu(menu);
+		ret = ret && initSubHistoryMenu(menu);
 		if (ret)
 		{
 			menu->addSeparator();
-		}*/
+		}
 
 		ret = ret && makeAction(action, menu, "Print(P)", Qt::CTRL + Qt::Key_P);
 		if (ret)
@@ -162,10 +161,9 @@ bool My_browser::initSubHistoryMenu(QMenu* menu)
 	bool ret = true;
 	
 	m_history = new History();
-	m_history->setHistoryPoint(webview->page()->history());  //将web视图中的页面的历史记录对象的指针给予m_history
 	menu->addMenu(m_history);
-	
-	connect(m_history, SIGNAL(SendToMainUrl(const QUrl&)), this, SLOT(recive_url_fromhistory(const QUrl&)));
+	//接受来自action点击后传来的url，传给槽函数
+	//connect(m_history, SIGNAL(SendToMainUrl(const QUrl&)), this, SLOT(recive_url_fromhistory(const QUrl&)));
 
 	return ret;
 }
@@ -180,8 +178,8 @@ bool My_browser::initProgressBar(QVBoxLayout* layout)
 		if (PB != NULL)
 		{
 			PB->setMaximumHeight(10);
-			//当加载完成后，进度条隐藏；这里用的lambda表达式
-			connect(m_currenttab, &webTabWidget::loadfinished, [this]() {PB->setVisible(false); });
+			PB->setVisible(false);
+			//当加载，进度条显示；这里用的lambda表达式，完成后就隐藏
 			connect(m_currenttab, &webTabWidget::startload, [this]() {PB->show(); });
 			
 			layout->addWidget(PB);
@@ -199,39 +197,46 @@ bool My_browser::initProgressBar(QVBoxLayout* layout)
 	return ret;
 }
 
-bool My_browser::initWebEngView()
-{
-	bool ret = true;
-
-	webview = new WebView(this);//此处指针this父类也可以
-	if (webview != NULL)
-	{
-		setCentralWidget(webview);    //关键步骤
-	
-		connect(webview, SIGNAL(loadProgress(int)),this,SLOT(webviewLoding (int)));
-		connect(webview, SIGNAL(loadProgress(int)), this, SLOT(webview_History()));
-		
-		webview->load(QUrl("http://www.baidu.com"));//试验作用
-	}
-	else
-	{
-		ret = false;
-	}
-
-	return ret;
-}
+//bool My_browser::initWebEngView()
+//{
+//	bool ret = true;
+//
+//	webview = new WebView(this);//此处指针this父类也可以
+//	if (webview != NULL)
+//	{
+//		setCentralWidget(webview);    //关键步骤
+//	
+//		connect(webview, SIGNAL(loadProgress(int)),this,SLOT(webviewLoding (int)));
+//		connect(webview, SIGNAL(loadProgress(int)), this, SLOT(webview_History()));
+//		
+//		webview->load(QUrl("http://www.baidu.com"));//试验作用
+//	}
+//	else
+//	{
+//		ret = false;
+//	}
+//
+//	return ret;
+//}
 
 bool My_browser::initTab_webview()
 {
 	bool ret = true;
 	webTabWidget* tab = new webTabWidget();
-	if (tab && (tab->createTabWebView() != nullptr))
+	if (tab && (tab->createTabWebView() != nullptr))  //启动程序初始化打开打开一个网络页面
 	{
 		m_currenttab = tab;
 		
 		setCentralWidget(tab);
 
-		connect(m_currenttab, SIGNAL(loadpressnum(int)),this,SLOT(webviewLoding(int)));
+		if(m_currenttab != NULL){
+			connect(m_currenttab, SIGNAL(loadpressnum(int)), this, SLOT(webviewLoding(int)));
+			connect(m_currenttab, &webTabWidget::currentUrl, [this](QUrl& url) {
+				line->setText(url.toString());  //将文本框中的网址显示为真实网址
+			});
+			connect(m_currenttab, SIGNAL(CloseSingal()), this, SLOT(browser_exit()));
+			connect(m_currenttab, SIGNAL(send_Title_url(QString&,QUrl&)), this, SLOT(webview_History(QString&,QUrl&)));
+		}
 	}
 	else
 	{

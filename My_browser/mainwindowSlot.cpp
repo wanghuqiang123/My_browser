@@ -22,22 +22,18 @@ void My_browser::on_goButton_click()
 	{
 		url = "http://" + url;
 	}
-	//webview->load(QUrl(url));
+	m_currenttab->currrnt_widget()->load(QUrl(url));//在当前页面载入
 }
 
 void My_browser::webviewLoding(int progress)
 {
 	PB->setValue(progress);
-	//line->setText(webview->url().toString());  //将文本框中的网址显示为真实网址
-}
-
-void My_browser::webviewloadcomplate(bool ok)
-{
-	if (ok)
+	if (progress == 100)
 	{
 		PB->setVisible(false);
 	}
 }
+
 void My_browser::webview_PagePrint()
 {
 	QPrintDialog dlg(this);    //弹出打印对话框
@@ -56,10 +52,10 @@ void My_browser::recive_url_fromhistory(const QUrl& url)
 {
 	//webview->load(url);
 }
-void My_browser::webview_History()
+void My_browser::webview_History(QString& s,QUrl& url)
 {
 	//添加历史记录
-	//m_history->addHistoryAction();
+	m_history->addHistoryAction(s,url);
 }
 
 void My_browser::browser_exit()

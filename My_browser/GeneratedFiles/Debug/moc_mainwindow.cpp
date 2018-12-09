@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_My_browser_t {
-    QByteArrayData data[12];
-    char stringdata0[200];
+    QByteArrayData data[13];
+    char stringdata0[195];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,19 +38,20 @@ QT_MOC_LITERAL(3, 32, 22), // "on_forwardButton_click"
 QT_MOC_LITERAL(4, 55, 22), // "on_refreshButton_click"
 QT_MOC_LITERAL(5, 78, 17), // "on_goButton_click"
 QT_MOC_LITERAL(6, 96, 13), // "webviewLoding"
-QT_MOC_LITERAL(7, 110, 19), // "webviewloadcomplate"
-QT_MOC_LITERAL(8, 130, 17), // "webview_PagePrint"
-QT_MOC_LITERAL(9, 148, 12), // "browser_exit"
-QT_MOC_LITERAL(10, 161, 22), // "recive_url_fromhistory"
-QT_MOC_LITERAL(11, 184, 15) // "webview_History"
+QT_MOC_LITERAL(7, 110, 17), // "webview_PagePrint"
+QT_MOC_LITERAL(8, 128, 12), // "browser_exit"
+QT_MOC_LITERAL(9, 141, 22), // "recive_url_fromhistory"
+QT_MOC_LITERAL(10, 164, 15), // "webview_History"
+QT_MOC_LITERAL(11, 180, 8), // "QString&"
+QT_MOC_LITERAL(12, 189, 5) // "QUrl&"
 
     },
     "My_browser\0on_backButton_click\0\0"
     "on_forwardButton_click\0on_refreshButton_click\0"
     "on_goButton_click\0webviewLoding\0"
-    "webviewloadcomplate\0webview_PagePrint\0"
-    "browser_exit\0recive_url_fromhistory\0"
-    "webview_History"
+    "webview_PagePrint\0browser_exit\0"
+    "recive_url_fromhistory\0webview_History\0"
+    "QString&\0QUrl&"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,7 +61,7 @@ static const uint qt_meta_data_My_browser[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -68,16 +69,15 @@ static const uint qt_meta_data_My_browser[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   64,    2, 0x09 /* Protected */,
-       3,    0,   65,    2, 0x09 /* Protected */,
-       4,    0,   66,    2, 0x09 /* Protected */,
-       5,    0,   67,    2, 0x09 /* Protected */,
-       6,    1,   68,    2, 0x09 /* Protected */,
-       7,    1,   71,    2, 0x09 /* Protected */,
-       8,    0,   74,    2, 0x09 /* Protected */,
-       9,    0,   75,    2, 0x09 /* Protected */,
-      10,    1,   76,    2, 0x09 /* Protected */,
-      11,    0,   79,    2, 0x09 /* Protected */,
+       1,    0,   59,    2, 0x09 /* Protected */,
+       3,    0,   60,    2, 0x09 /* Protected */,
+       4,    0,   61,    2, 0x09 /* Protected */,
+       5,    0,   62,    2, 0x09 /* Protected */,
+       6,    1,   63,    2, 0x09 /* Protected */,
+       7,    0,   66,    2, 0x09 /* Protected */,
+       8,    0,   67,    2, 0x09 /* Protected */,
+       9,    1,   68,    2, 0x09 /* Protected */,
+      10,    2,   71,    2, 0x09 /* Protected */,
 
  // slots: parameters
     QMetaType::Void,
@@ -85,11 +85,10 @@ static const uint qt_meta_data_My_browser[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, QMetaType::Bool,    2,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QUrl,    2,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 11, 0x80000000 | 12,    2,    2,
 
        0        // eod
 };
@@ -105,11 +104,10 @@ void My_browser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->on_refreshButton_click(); break;
         case 3: _t->on_goButton_click(); break;
         case 4: _t->webviewLoding((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->webviewloadcomplate((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 6: _t->webview_PagePrint(); break;
-        case 7: _t->browser_exit(); break;
-        case 8: _t->recive_url_fromhistory((*reinterpret_cast< const QUrl(*)>(_a[1]))); break;
-        case 9: _t->webview_History(); break;
+        case 5: _t->webview_PagePrint(); break;
+        case 6: _t->browser_exit(); break;
+        case 7: _t->recive_url_fromhistory((*reinterpret_cast< const QUrl(*)>(_a[1]))); break;
+        case 8: _t->webview_History((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QUrl(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -140,13 +138,13 @@ int My_browser::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 10;
+        _id -= 9;
     }
     return _id;
 }

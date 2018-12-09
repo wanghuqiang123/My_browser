@@ -15,11 +15,10 @@ class History :public QMenu
 	Q_OBJECT
 public:
 	explicit History(QMenu* parent = NULL);
-	
-	bool setHistoryPoint(QWebEngineHistory* p);
+
 	~History();
 
-	void addHistoryAction();
+	void addHistoryAction(QString&,QUrl&);
 signals:
 	void SendToMainUrl(const QUrl& s);
 protected slots:
@@ -31,7 +30,6 @@ private:
 
 	HistoryAction* makeHistoryAction(QString& );
 	QMap<QString,QUrl> historys_data;
-	QWebEngineHistory* m_history;
 	
 };
 

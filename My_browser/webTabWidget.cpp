@@ -6,13 +6,21 @@ webTabWidget::webTabWidget(QWidget* parent):QTabWidget(parent)
 	setTabsClosable(true);
 
 	//设置头标签的尺寸
-	setStyleSheet("QTabBar::tab{width:200px;height:30px}");
+	setStyleSheet("QTabBar::tab{width:180px;height:30px}");//样式表
 }
 
 void webTabWidget::initTabWidget()
 {
-	connect(this, &QTabWidget::tabCloseRequested, [this](int index) 
-		{removeTab(index); delete m_webview[index]; m_webview.remove(index); 
+	connect(this, &QTabWidget::tabCloseRequested, [this](int index) {
+		removeTab(index); 
+		delete m_webview[index]; 
+		m_webview.remove(index); 
+		if (m_webview.size() == 0) {
+			emit CloseSingal();  //if no one webview,emit a close signal to mainwindow to close;
+		}
+	});
+	connect(this, &QTabWidget::tabBarClicked, [this](int index) {
+		emit currentUrl(m_webview[index]->url());//每切换一个页面，就把网址框中的网址设置为当前页面的网址
 	});
 }
 WebView* webTabWidget::createTabWebView()
@@ -20,14 +28,11 @@ WebView* webTabWidget::createTabWebView()
 	WebView* webview = new WebView();
 	if (webview != NULL)
 	{
-		webview->setWindowPoint(this);
-
-		addTab(webview,"loading...");
+		addTab(webview,"New Tab");
 		setCurrentWidget(webview);
 
 		m_webview.push_back(webview);
 		setup_webview(webview);
-		webview->load(QUrl("http://www.baidu.com"));
 	}
 	return webview;
 }
@@ -36,26 +41,37 @@ bool webTabWidget::setup_webview(WebView* webview)
 {
 	bool ret = true;
 	
-	connect(webview, &QWebEngineView::loadProgress, [this](int progress) 
-			{emit loadpressnum(progress); }
-	);
+	webview->setWindowPoint(this);   //把tabwidget的指针传给当前webview内存中的变量
+
+	connect(webview, &QWebEngineView::loadProgress, [this,webview](int progress) {
+		emit loadpressnum(progress); 
+		emit currentUrl(webview->url());
+	});
 
 	connect(webview, &QWebEngineView::iconChanged, [this, webview]() {
-		int index = currentIndex();	//set currentWidgetTab webview icon
-		setTabIcon(index, webview->icon()); 
+		int index = m_webview.indexOf(webview);	
+		setTabIcon(index, webview->icon());	//set currentWidgetTab webview icon
 	});
 	connect(webview, &QWebEngineView::loadFinished, [this,webview](bool ok){	
 		if (ok) { 
-		int index = currentIndex();
+		int index = m_webview.indexOf(webview);//现在的webview在容器的哪个位置；对应的下标
 		setTabText(index, webview->title());//set currentWidgetTab webview title
-		emit loadfinished();
 		}	
 	});
-	connect(webview, &QWebEngineView::loadStarted, [this]() 
-		{emit startload(); 
+	connect(webview, &QWebEngineView::loadStarted, [this]() {
+		emit startload(); 
+	});
+	connect(webview, &QWebEngineView::titleChanged, [this, webview](const QString&) {
+		emit send_Title_url(webview->page()->history()->currentItem().title()
+			, webview->page()->history()->currentItem().url());
 	});
 	return ret;
 }
+WebView* webTabWidget::currrnt_widget()
+{
+	return m_webview[currentIndex()];
+}
+
 webTabWidget::~webTabWidget()
 {
 
