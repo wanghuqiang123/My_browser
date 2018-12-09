@@ -1,2 +1,3 @@
-﻿  webTabWidget.cpp
+﻿  mainwindowSlot.cpp
+  webTabWidget.cpp
   My_browser.vcxproj -> C:\Qt\QT_file\VS_Qt\My_browser\x64\Debug\My_browser.exe

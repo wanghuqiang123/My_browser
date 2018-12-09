@@ -2,17 +2,17 @@
 
 void My_browser::on_backButton_click()
 {
-	//webview->back();
+	m_currenttab->currrnt_widget()->back();
 }
 
 void My_browser::on_forwardButton_click()
 {
-	//webview->forward();
+	m_currenttab->currrnt_widget()->forward();
 }
 
 void My_browser::on_refreshButton_click()
 {
-	//webview->reload();
+	m_currenttab->currrnt_widget()->reload();
 }
 
 void My_browser::on_goButton_click()
