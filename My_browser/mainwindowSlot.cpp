@@ -34,7 +34,7 @@ void My_browser::webviewLoding(int progress)
 	}
 }
 
-void My_browser::webview_PagePrint()
+/*void My_browser::webview_PagePrint()
 {
 	QPrintDialog dlg(this);    //弹出打印对话框
 	dlg.setWindowTitle("Print");    //对话框标题
@@ -44,13 +44,13 @@ void My_browser::webview_PagePrint()
 		QPrinter* p = dlg.printer();               //获取打印机对象
 
 		//将编辑器中的内容传给打印机打印，第二个参数这里用到了lambda语法，因为在QWebEngine这里需要一个回调函数
-		//webview->page()->print(p, [=](bool) {});
+		//m_currenttab->currrnt_widget()->page()->print(p, [=](bool ok) { });
 	}
-}
+}*/
 
 void My_browser::recive_url_fromhistory(const QUrl& url)
 {
-	//webview->load(url);
+	m_currenttab->currrnt_widget()->load(url);
 }
 void My_browser::webview_History(QString& s,QUrl& url)
 {

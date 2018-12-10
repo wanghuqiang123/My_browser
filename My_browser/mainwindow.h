@@ -19,10 +19,7 @@
 #include <QProgressBar>
 #include <QDockWidget>
 #include <QKeySequence>
-#include <QPrinter>
-#include <QPrinter>
-#include <QPrintDialog>
-#include <QList>
+#include <QMessageBox>
 #include "webview.h"
 #include "History.h"
 #include "webTabWidget.h"
@@ -76,7 +73,6 @@ protected slots:
 	void on_goButton_click();
 	void webviewLoding(int);
 
-	void webview_PagePrint();
 	void browser_exit();
 
 	

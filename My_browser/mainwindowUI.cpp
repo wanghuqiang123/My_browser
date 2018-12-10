@@ -130,13 +130,6 @@ bool My_browser::initMenuItem(QPushButton* btn)
 			menu->addSeparator();
 		}
 
-		ret = ret && makeAction(action, menu, "Print(P)", Qt::CTRL + Qt::Key_P);
-		if (ret)
-		{
-			connect(action, SIGNAL(triggered(bool)), this, SLOT(webview_PagePrint()));
-			menu->addAction(action);
-		}
-
 		//退出选项
 		ret = ret && makeAction(action, menu, "Exit(E)", Qt::CTRL + Qt::SHIFT + Qt::Key_Q);
 		if (ret)
@@ -163,7 +156,7 @@ bool My_browser::initSubHistoryMenu(QMenu* menu)
 	m_history = new History();
 	menu->addMenu(m_history);
 	//接受来自action点击后传来的url，传给槽函数
-	//connect(m_history, SIGNAL(SendToMainUrl(const QUrl&)), this, SLOT(recive_url_fromhistory(const QUrl&)));
+	connect(m_history, SIGNAL(SendToMainUrl(const QUrl&)), this, SLOT(recive_url_fromhistory(const QUrl&)));
 
 	return ret;
 }
