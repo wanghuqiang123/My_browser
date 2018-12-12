@@ -1,6 +1,8 @@
 #pragma once
 #include <QWebEngineView>
+#include <QWebEngineProfile>
 #include "webTabWidget.h"
+
 class webTabWidget;
 class WebView :public QWebEngineView
 {
@@ -12,4 +14,4 @@ public:
 protected:
 	webTabWidget* tabwidget;
 	QWebEngineView* createWindow(QWebEnginePage::WebWindowType type);
-};
+}; 

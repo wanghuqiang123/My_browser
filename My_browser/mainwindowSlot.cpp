@@ -27,11 +27,11 @@ void My_browser::on_goButton_click()
 
 void My_browser::webviewLoding(int progress)
 {
-	PB->setValue(progress);
-	if (progress == 100)
+	if (progress >= 100)
 	{
 		PB->setVisible(false);
 	}
+	PB->setValue(progress);
 }
 
 /*void My_browser::webview_PagePrint()

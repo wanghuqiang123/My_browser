@@ -3,6 +3,7 @@
 My_browser::My_browser(QWidget* parent):QMainWindow(parent)
 {
 	resize(1000, 600);
+	setWindowTitle("Browser");
 }
 
 My_browser* My_browser::NewInstance()

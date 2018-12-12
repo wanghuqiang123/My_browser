@@ -5,5 +5,6 @@
         <file>Icon/go-previous.png</file>
         <file>Icon/view-refresh.png</file>
         <file>Icon/loading.gif</file>
+        <file>Icon/AppLogoColor.png</file>
     </qresource>
 </RCC>

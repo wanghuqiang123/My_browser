@@ -6,7 +6,6 @@ webTabWidget::webTabWidget(QWidget* parent):QTabWidget(parent)
 	setTabsClosable(true);
 
 	_addTabButton();  
-	//_addTabButton();
 	//设置头标签的尺寸
 	setStyleSheet("QTabBar::tab{width:180px;height:30px}");//样式表
 }
@@ -17,6 +16,7 @@ void webTabWidget::initTabWidget()
 		removeTab(index); 
 		delete m_webview[index]; 
 		m_webview.remove(index); 
+		emit loadpressnum(100);
 		if (m_webview.size() == 0) {
 			emit CloseSingal();  //if no one webview,emit a close signal to mainwindow to close;
 		}
