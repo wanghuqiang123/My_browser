@@ -6,6 +6,7 @@ webTabWidget::webTabWidget(QWidget* parent):QTabWidget(parent)
 	setTabsClosable(true);
 
 	_addTabButton();  
+	setProfile();
 	//设置头标签的尺寸
 	setStyleSheet("QTabBar::tab{width:180px;height:30px}");//样式表
 }
@@ -44,6 +45,7 @@ bool webTabWidget::setup_webview(WebView* webview)
 {
 	bool ret = true;
 	webview->setWindowPoint(this);   //把tabwidget的指针传给当前webview内存中的变量
+	setWebPage(webview);			//设置网页的配置文件，cookie等
 	connect(webview, &QWebEngineView::loadProgress, [this,webview](int progress) {
 		emit loadpressnum(progress); 
 		emit currentUrl(webview->url());
@@ -80,6 +82,36 @@ void webTabWidget::_addTabButton()
 	connect(tb, &QAbstractButton::clicked, [this](bool) {
 		createTabWebView();
 	});   //当被按下的时候添加一个空web标签页
+}
+
+bool webTabWidget::setProfile()
+{
+	bool ret = true;
+	this->m_profile = QWebEngineProfile::defaultProfile();
+	if (m_profile != NULL)
+	{
+		m_profile->setPersistentCookiesPolicy(QWebEngineProfile::NoPersistentCookies);
+	}
+	else
+	{
+		ret = false;
+	}
+	return ret;
+}
+
+bool webTabWidget::setWebPage(WebView* webview)
+{
+	bool ret = true;
+	QWebEnginePage* page = new QWebEnginePage(m_profile,webview);
+	if (page != NULL)
+	{
+		webview->setPage(page);
+	}
+	else
+	{
+		ret = false;
+	}
+	return ret;
 }
 
 webTabWidget::~webTabWidget()

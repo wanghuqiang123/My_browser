@@ -9,6 +9,7 @@
 #include <QWebEnginePage>
 #include <QWebEngineHistory>
 #include <QWebEngineHistoryItem>
+#include <QWebEngineProfile>
 #include <QPushButton>
 #include "webview.h"
 
@@ -31,7 +32,10 @@ signals:
 	void currentUrl(QUrl&);
 private:
 	QVector<WebView*>m_webview;
+	QWebEngineProfile* m_profile;
 	bool setup_webview(WebView*);
+	bool setProfile();
+	bool setWebPage(WebView*);
 	void initTabWidget();
 	void _addTabButton();
 };
