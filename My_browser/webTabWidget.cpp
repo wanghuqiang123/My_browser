@@ -89,8 +89,12 @@ bool webTabWidget::setProfile()
 	bool ret = true;
 	this->m_profile = QWebEngineProfile::defaultProfile();
 	if (m_profile != NULL)
-	{
+	{   //默认cookie为临时会话，短暂存储
 		m_profile->setPersistentCookiesPolicy(QWebEngineProfile::NoPersistentCookies);
+		//设置cookie的文件的存放路径
+		m_profile->setPersistentStoragePath("C:\\Qt\\QT_file\\VS_Qt\\My_browser\\profile");
+		//使用内存缓存类型来存储浏览过的网页信息，默认情况下是硬盘存储，一直保留，但是这是测试代码，因此用内存缓存即可
+		m_profile->setHttpCacheType(QWebEngineProfile::MemoryHttpCache);
 	}
 	else
 	{
@@ -114,6 +118,14 @@ bool webTabWidget::setWebPage(WebView* webview)
 	return ret;
 }
 
+void webTabWidget::clearCookie(bool)
+{
+	//清除所有的cookie记录
+	m_profile->cookieStore()->deleteAllCookies();
+	//清除浏览器所有的历史记录
+	//m_profile->clearAllVisitedLinks();
+}
 webTabWidget::~webTabWidget()
 {
+	
 }

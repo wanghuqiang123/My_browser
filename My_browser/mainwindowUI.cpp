@@ -131,6 +131,11 @@ bool My_browser::initMenuItem(QPushButton* btn)
 			menu->addSeparator();
 		}
 
+		ret = ret && initMoreToolMenu(menu);
+		{
+			menu->addSeparator();    //添加一个分隔器
+		}
+
 		//退出选项
 		ret = ret && makeAction(action, menu, "Exit(E)", Qt::CTRL + Qt::SHIFT + Qt::Key_Q);
 		if (ret)
@@ -162,6 +167,33 @@ bool My_browser::initSubHistoryMenu(QMenu* menu)
 	return ret;
 }
 
+bool My_browser::initMoreToolMenu(QMenu* parent)
+{
+	bool ret = true;
+	QMenu* menu = new QMenu();
+	QAction* action = NULL;
+	if (menu != NULL)
+	{
+		menu->setTitle("More Tool");
+		
+		ret = ret && makeAction(action, menu, "clear all cookie", 0);
+		if (ret)
+		{
+			connect(action, SIGNAL(triggered(bool)),m_currenttab,SLOT(clearCookie()));
+			menu->addAction(action);
+		}
+	}
+	else
+	{
+		ret = false;
+		delete menu;
+	}
+	if (ret)
+	{
+		parent->addMenu(menu);
+	}
+	return ret;
+}
 bool My_browser::initProgressBar(QVBoxLayout* layout)
 {
 	bool ret = true;
@@ -175,7 +207,6 @@ bool My_browser::initProgressBar(QVBoxLayout* layout)
 			PB->setVisible(false);
 			//当加载，进度条显示；这里用的lambda表达式，完成后就隐藏
 			connect(m_currenttab, &webTabWidget::startload, [this]() {PB->show(); });
-			
 			layout->addWidget(PB);
 		}
 		else
@@ -190,7 +221,6 @@ bool My_browser::initProgressBar(QVBoxLayout* layout)
 
 	return ret;
 }
-
 //bool My_browser::initWebEngView()
 //{
 //	bool ret = true;
@@ -212,7 +242,6 @@ bool My_browser::initProgressBar(QVBoxLayout* layout)
 //
 //	return ret;
 //}
-
 bool My_browser::initTab_webview()
 {
 	bool ret = true;

@@ -35,7 +35,6 @@ public:
 
 private:
 	/*data memory*/
-	WebView* webview;
 	QToolBar* tb;
 	QLineEdit* line;
 	QProgressBar* PB;
@@ -61,6 +60,7 @@ private:
 	bool initTab_webview();
 
 	bool initSubHistoryMenu(QMenu*);
+	bool initMoreToolMenu(QMenu*);
 /*protected:
 	bool eventFilter(QObject* target, QEvent* event);ÊÂ¼þ¹ýÂË
 */
@@ -74,8 +74,6 @@ protected slots:
 	void webviewLoding(int);
 
 	void browser_exit();
-
-	
 	
 	void recive_url_fromhistory(const QUrl&);
 	void webview_History(QString&,QUrl&);

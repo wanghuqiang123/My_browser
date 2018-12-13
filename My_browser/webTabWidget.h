@@ -10,6 +10,7 @@
 #include <QWebEngineHistory>
 #include <QWebEngineHistoryItem>
 #include <QWebEngineProfile>
+#include <QWebEngineCookieStore>
 #include <QPushButton>
 #include "webview.h"
 
@@ -30,6 +31,8 @@ signals:
 	void CloseSingal();
 	void startload();
 	void currentUrl(QUrl&);
+public slots:
+	void clearCookie(bool);
 private:
 	QVector<WebView*>m_webview;
 	QWebEngineProfile* m_profile;
