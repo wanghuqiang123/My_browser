@@ -34,7 +34,7 @@ WebView* webTabWidget::createTabWebView()
 	{
 		addTab(webview,"New Tab");
 		setCurrentWidget(webview);
-
+		
 		m_webview.push_back(webview);
 		setup_webview(webview);
 	}
@@ -52,7 +52,7 @@ bool webTabWidget::setup_webview(WebView* webview)
 	});
 	connect(webview, &QWebEngineView::iconChanged, [this, webview]() {
 		int index = m_webview.indexOf(webview);	
-		setTabIcon(index, webview->icon());	//set currentWidgetTab webview icon
+		setTabIcon(index, webview->page()->icon());	//set currentWidgetTab webview icon，加page()是因为当前页面的网页；
 	});
 	connect(webview, &QWebEngineView::loadFinished, [this,webview](bool ok){	
 		if (ok) { 
@@ -110,6 +110,9 @@ bool webTabWidget::setWebPage(WebView* webview)
 	if (page != NULL)
 	{
 		webview->setPage(page);
+		//	qrc:// + url，需要写成这种格式，才能作为网址格式被识别  
+		//这是作为初始化界面的自带网页
+		webview->page()->load(QUrl("qrc:///My_browser/HTML/Html.html"));
 	}
 	else
 	{
