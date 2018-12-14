@@ -1,1 +1,0 @@
-Rcc'ing My_browser.qrc...;C:\Qt_windows\5.10.0\msvc2017_64\bin\rcc.exe;"C:\Qt\QT_file\VS_Qt\My_browser\My_browser\My_browser.qrc" -o ".\GeneratedFiles\qrc_My_browser.cpp" --name My_browser

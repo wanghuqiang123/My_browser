@@ -6,6 +6,5 @@
         <file>Icon/view-refresh.png</file>
         <file>Icon/loading.gif</file>
         <file>Icon/AppLogoColor.png</file>
-        <file>HTML/Html.html</file>
     </qresource>
 </RCC>

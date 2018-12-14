@@ -23,7 +23,7 @@ void webTabWidget::initTabWidget()
 		}
 	});
 	connect(this, &QTabWidget::tabBarClicked, [this](int index) {
-		emit currentUrl(m_webview[index]->url());//每切换一个页面，就把网址框中的网址设置为当前页面的网址
+		this->sentCurrentUrl(index);
 	});
 	
 }
@@ -47,8 +47,10 @@ bool webTabWidget::setup_webview(WebView* webview)
 	webview->setWindowPoint(this);   //把tabwidget的指针传给当前webview内存中的变量
 	setWebPage(webview);			//设置网页的配置文件，cookie等
 	connect(webview, &QWebEngineView::loadProgress, [this,webview](int progress) {
-		emit loadpressnum(progress); 
-		emit currentUrl(webview->url());
+		emit loadpressnum(progress);
+		int index = m_webview.indexOf(webview);
+		if(currentIndex() == index)		//在载入网页的过程中，如果tabwidget当前页面和载入的网页下标不一致，则不发送正在载入的网页网址
+			this->sentCurrentUrl(index);
 	});
 	connect(webview, &QWebEngineView::iconChanged, [this, webview]() {
 		int index = m_webview.indexOf(webview);	
@@ -112,7 +114,8 @@ bool webTabWidget::setWebPage(WebView* webview)
 		webview->setPage(page);
 		//	qrc:// + url，需要写成这种格式，才能作为网址格式被识别  
 		//这是作为初始化界面的自带网页
-		webview->page()->load(QUrl("qrc:///My_browser/HTML/Html.html"));
+		//webview->page()->load(QUrl("qrc:///My_browser/HTML/Html.html"));
+		webview->page()->load(QUrl::fromLocalFile("C:\\Qt\\QT_file\\VS_Qt\\My_browser\\My_browser\\HTML\\Html.html"));//fromlocfile()将本地文件路径转化为QURL；
 	}
 	else
 	{
@@ -127,6 +130,18 @@ void webTabWidget::clearCookie(bool)
 	m_profile->cookieStore()->deleteAllCookies();
 	//清除浏览器所有的历史记录
 	//m_profile->clearAllVisitedLinks();
+}
+void webTabWidget::sentCurrentUrl(int index)
+{
+	QString &s = m_webview[index]->url().toString();
+	if (!s.startsWith("file://"))
+	{
+		emit currentUrl(m_webview[index]->url());
+	}
+	else     //每切换一个页面，就把网址框中的网址设置为当前页面的网址,如果是网站网址则发送网址，是本地的文件地址则置为空
+	{
+		emit currentUrl(QUrl(""));
+	}
 }
 webTabWidget::~webTabWidget()
 {

@@ -41,5 +41,6 @@ private:
 	bool setWebPage(WebView*);
 	void initTabWidget();
 	void _addTabButton();
+	void sentCurrentUrl(int);
 };
 
