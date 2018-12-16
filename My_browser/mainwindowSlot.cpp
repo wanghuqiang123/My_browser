@@ -48,12 +48,12 @@ void My_browser::webviewLoding(int progress)
 	}
 }*/
 
-void My_browser::recive_url_fromhistory(const QUrl& url)
+void My_browser::recive_url_fromhistory(const QUrl url)
 {
 	m_currenttab->createTabWebView();   //创建一个空的标签页
 	m_currenttab->current_widget()->load(url);
 }
-void My_browser::webview_History(QString& s,QUrl& url)
+void My_browser::webview_History(QString s,QUrl url)
 {
 	//添加历史记录
 	m_history->addHistoryAction(s,url);

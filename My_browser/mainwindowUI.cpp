@@ -171,7 +171,7 @@ bool My_browser::initSubHistoryMenu(QMenu* menu)
 	m_history = new History();
 	menu->addMenu(m_history);
 	//接受来自action点击后传来的url，传给槽函数
-	connect(m_history, SIGNAL(SendToMainUrl(const QUrl&)), this, SLOT(recive_url_fromhistory(const QUrl&)));
+	connect(m_history, SIGNAL(SendToMainUrl(const QUrl)), this, SLOT(recive_url_fromhistory(const QUrl)));
 
 	return ret;
 }
@@ -263,7 +263,7 @@ bool My_browser::initTab_webview()
 			connect(m_currenttab, SIGNAL(loadpressnum(int)), this, SLOT(webviewLoding(int)));
 			connect(m_currenttab, SIGNAL(currentUrl(QUrl&)), this,SLOT(setlinetext(QUrl)));  //将文本框中的网址显示为真实网址
 			connect(m_currenttab, SIGNAL(CloseSingal()), this, SLOT(browser_exit()));
-			connect(m_currenttab, SIGNAL(send_Title_url(QString&,QUrl&)), this, SLOT(webview_History(QString&,QUrl&)));
+			connect(m_currenttab, SIGNAL(send_Title_url(QString,QUrl)), this, SLOT(webview_History(QString,QUrl)));
 		}
 	}
 	else

@@ -20,7 +20,7 @@ public:
 
 	void addHistoryAction(QString,QUrl);
 signals:
-	void SendToMainUrl(const QUrl& s);
+	void SendToMainUrl(const QUrl s);
 protected slots:
 	void ReciveUrlFromAction(const QString);
 	void ClearHisyory();

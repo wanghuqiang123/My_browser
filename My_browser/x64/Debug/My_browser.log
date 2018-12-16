@@ -1,2 +1,9 @@
-﻿  webTabWidget.cpp
+﻿  Moc'ing mainwindow.h...
+  Moc'ing History.h...
+  moc_History.cpp
+  moc_mainwindow.cpp
+  History.cpp
+  main.cpp
+  mainwindowUI.cpp
+  webTabWidget.cpp
   My_browser.vcxproj -> C:\Qt\QT_file\VS_Qt\My_browser\x64\Debug\My_browser.exe

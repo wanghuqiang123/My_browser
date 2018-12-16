@@ -72,8 +72,8 @@ protected slots:
 
 	void browser_exit();
 	
-	void recive_url_fromhistory(const QUrl&);
-	void webview_History(QString&,QUrl&);
+	void recive_url_fromhistory(const QUrl);
+	void webview_History(QString,QUrl);
 	void setlinetext(QUrl);
 	
 };
