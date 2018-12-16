@@ -11,7 +11,7 @@ public:
 	explicit HistoryAction(QWidget* parent = NULL);
 	virtual ~HistoryAction();
 signals:
-	void SendUrl(const QString& s);
+	void SendUrl(const QString s);
 protected slots:
 	void MousePress();
 //protected:

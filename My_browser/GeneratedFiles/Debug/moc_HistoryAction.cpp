@@ -83,7 +83,7 @@ void HistoryAction::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            typedef void (HistoryAction::*_t)(const QString & );
+            typedef void (HistoryAction::*_t)(const QString );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&HistoryAction::SendUrl)) {
                 *result = 0;
                 return;
@@ -129,7 +129,7 @@ int HistoryAction::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void HistoryAction::SendUrl(const QString & _t1)
+void HistoryAction::SendUrl(const QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

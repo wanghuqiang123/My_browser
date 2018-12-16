@@ -12,6 +12,8 @@
 #include <QWebEngineProfile>
 #include <QWebEngineCookieStore>
 #include <QPushButton>
+#include <QWebChannel>
+#include <QStringLiteral>
 #include "webview.h"
 
 class WebView;
@@ -22,15 +24,18 @@ public:
 	webTabWidget(QWidget* parent = nullptr);
 
 	WebView* createTabWebView();
-	WebView* currrnt_widget();
+	WebView* current_widget();
+
+	Q_INVOKABLE void doSomething();
+	void test(QWebEnginePage*);
 
 	virtual ~webTabWidget();
 signals:
 	void loadpressnum(int);
-	void send_Title_url(QString&,QUrl&);
+	void send_Title_url(QString,QUrl);
 	void CloseSingal();
 	void startload();
-	void currentUrl(QUrl&);
+	void currentUrl(QUrl);
 public slots:
 	void clearCookie(bool);
 private:

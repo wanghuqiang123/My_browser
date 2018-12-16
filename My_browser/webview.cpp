@@ -4,9 +4,6 @@ WebView::WebView(QWidget* parent):QWebEngineView(parent)
 {
 
 }
-
-
-
 QWebEngineView* WebView::createWindow(QWebEnginePage::WebWindowType type)
 {
 	switch (type){

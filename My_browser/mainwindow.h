@@ -24,7 +24,6 @@
 #include "History.h"
 #include "webTabWidget.h"
 
-
 class My_browser : public QMainWindow
 {
 	Q_OBJECT
@@ -32,7 +31,6 @@ class My_browser : public QMainWindow
 public:
 	static My_browser* NewInstance();
 	~My_browser();
-
 private:
 	/*data memory*/
 	QToolBar* tb;
@@ -42,7 +40,7 @@ private:
 	webTabWidget* m_currenttab;
 	/*method*/
 	My_browser(QWidget* parent = nullptr);
-	inline void resizeEvent(QResizeEvent* event);
+	void resizeEvent(QResizeEvent* event);
 
 	bool constrcut();
 
@@ -64,7 +62,6 @@ private:
 /*protected:
 	bool eventFilter(QObject* target, QEvent* event);ÊÂ¼þ¹ýÂË
 */
-
 protected slots:
 	/*slot function*/
 	void on_backButton_click();
@@ -77,5 +74,6 @@ protected slots:
 	
 	void recive_url_fromhistory(const QUrl&);
 	void webview_History(QString&,QUrl&);
+	void setlinetext(QUrl);
 	
 };

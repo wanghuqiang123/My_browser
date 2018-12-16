@@ -9,7 +9,7 @@ History::History(QMenu* parent)
 }
 
 
-void History::addHistoryAction(QString& s,QUrl& url)
+void History::addHistoryAction(QString s,QUrl url)
 {
 	if ( (historys_data.find(s) == historys_data.end()) && (s != ""))
 	{
@@ -17,7 +17,7 @@ void History::addHistoryAction(QString& s,QUrl& url)
 		if (action != NULL)
 		{
 			addAction(action);
-			connect(action,SIGNAL(SendUrl(const QString&)),this,SLOT(ReciveUrlFromAction(const QString&)));
+			connect(action,SIGNAL(SendUrl(const QString)),this,SLOT(ReciveUrlFromAction(const QString)));
 			historys_data.insert(s, url);
 		}
 	}
@@ -30,7 +30,7 @@ HistoryAction* History::makeHistoryAction(QString& s)
 	return action;
 }
 
-void History::ReciveUrlFromAction(const QString& s)
+void History::ReciveUrlFromAction(const QString s)
 {
 	QUrl& url = historys_data[s];
 	emit SendToMainUrl(url);

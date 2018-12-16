@@ -5,7 +5,6 @@ My_browser::My_browser(QWidget* parent):QMainWindow(parent)
 	resize(1000, 600);
 	setWindowTitle("Browser");
 }
-
 My_browser* My_browser::NewInstance()
 {
 	My_browser* instance = new My_browser();
@@ -29,8 +28,6 @@ bool My_browser::constrcut()
 	
 	return ret;
 }
-
-
 bool My_browser::initToolBar()
 {
 	bool ret = true;
@@ -143,6 +140,18 @@ bool My_browser::initMenuItem(QPushButton* btn)
 			connect(action, SIGNAL(triggered(bool)), this, SLOT(browser_exit()));
 			menu->addAction(action);
 		}
+		//此选项用于触发测试，正式发布请删除
+		/****************************/
+			ret = ret && makeAction(action, menu, "test js", 0);
+			if (ret)
+			{
+				connect(action, &QAction::triggered, [this]() {
+					//m_currenttab->current_widget()->page()->runJavaScript("myFunction()");
+					//谨慎使用，因为有时候javascript的代码会造成应用程序的阻塞？
+				});
+				menu->addAction(action);
+			}
+		/*****************************/
 	}
 	if (ret)
 	{
@@ -249,14 +258,10 @@ bool My_browser::initTab_webview()
 	if (tab && (tab->createTabWebView() != nullptr))  //启动程序初始化打开打开一个网络页面
 	{
 		m_currenttab = tab;
-		
 		setCentralWidget(tab);
-
 		if(m_currenttab != NULL){
 			connect(m_currenttab, SIGNAL(loadpressnum(int)), this, SLOT(webviewLoding(int)));
-			connect(m_currenttab, &webTabWidget::currentUrl, [this](QUrl& url) {
-				line->setText(url.toString());  //将文本框中的网址显示为真实网址
-			});
+			connect(m_currenttab, SIGNAL(currentUrl(QUrl&)), this,SLOT(setlinetext(QUrl)));  //将文本框中的网址显示为真实网址
 			connect(m_currenttab, SIGNAL(CloseSingal()), this, SLOT(browser_exit()));
 			connect(m_currenttab, SIGNAL(send_Title_url(QString&,QUrl&)), this, SLOT(webview_History(QString&,QUrl&)));
 		}
@@ -327,7 +332,6 @@ void My_browser::resizeEvent(QResizeEvent* event)
 
 	return QMainWindow::eventFilter(target, event);
 }*/
-
 My_browser::~My_browser()
 {
 

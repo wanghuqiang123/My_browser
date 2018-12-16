@@ -45,7 +45,6 @@ bool webTabWidget::setup_webview(WebView* webview)
 {
 	bool ret = true;
 	webview->setWindowPoint(this);   //把tabwidget的指针传给当前webview内存中的变量
-	setWebPage(webview);			//设置网页的配置文件，cookie等
 	connect(webview, &QWebEngineView::loadProgress, [this,webview](int progress) {
 		emit loadpressnum(progress);
 		int index = m_webview.indexOf(webview);
@@ -69,9 +68,11 @@ bool webTabWidget::setup_webview(WebView* webview)
 		emit send_Title_url(webview->page()->history()->currentItem().title()
 			, webview->page()->history()->currentItem().url());
 	});
+	setWebPage(webview);			//设置网页的配置文件，cookie等,显示初始网页面等
+	//test(webview->page());//测试用  确保page载入  确保被调用
 	return ret;
 }
-WebView* webTabWidget::currrnt_widget()
+WebView* webTabWidget::current_widget()
 {
 	return m_webview[currentIndex()];
 }
@@ -115,7 +116,8 @@ bool webTabWidget::setWebPage(WebView* webview)
 		//	qrc:// + url，需要写成这种格式，才能作为网址格式被识别  
 		//这是作为初始化界面的自带网页
 		//webview->page()->load(QUrl("qrc:///My_browser/HTML/Html.html"));
-		webview->page()->load(QUrl::fromLocalFile("C:\\Qt\\QT_file\\VS_Qt\\My_browser\\My_browser\\HTML\\Html.html"));//fromlocfile()将本地文件路径转化为QURL；
+		webview->page()->load(QUrl::fromLocalFile("C:\\Qt\\QT_file\\VS_Qt\\My_browser\\My_browser\\Html.html"));//fromlocfile()将本地文件路径转化为QURL；
+		//webview->page()->load(QUrl("qrc:///My_browser/Html.html"));
 	}
 	else
 	{
@@ -133,7 +135,7 @@ void webTabWidget::clearCookie(bool)
 }
 void webTabWidget::sentCurrentUrl(int index)
 {
-	QString &s = m_webview[index]->url().toString();
+	QString s = m_webview[index]->url().toString();
 	if (!s.startsWith("file://"))
 	{
 		emit currentUrl(m_webview[index]->url());
@@ -142,6 +144,16 @@ void webTabWidget::sentCurrentUrl(int index)
 	{
 		emit currentUrl(QUrl(""));
 	}
+}
+void webTabWidget::test(QWebEnginePage* page)
+{
+	QWebChannel* channel = new QWebChannel(this);
+	channel->registerObject(QStringLiteral("web"), this);
+	page->setWebChannel(channel);
+}
+void webTabWidget::doSomething()
+{
+	tabBar()->insertTab(count(),"this from javascript");
 }
 webTabWidget::~webTabWidget()
 {

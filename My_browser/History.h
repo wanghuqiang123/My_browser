@@ -18,11 +18,11 @@ public:
 
 	~History();
 
-	void addHistoryAction(QString&,QUrl&);
+	void addHistoryAction(QString,QUrl);
 signals:
 	void SendToMainUrl(const QUrl& s);
 protected slots:
-	void ReciveUrlFromAction(const QString&);
+	void ReciveUrlFromAction(const QString);
 	void ClearHisyory();
 private:
 

@@ -2,17 +2,17 @@
 
 void My_browser::on_backButton_click()
 {
-	m_currenttab->currrnt_widget()->back();
+	m_currenttab->current_widget()->back();
 }
 
 void My_browser::on_forwardButton_click()
 {
-	m_currenttab->currrnt_widget()->forward();
+	m_currenttab->current_widget()->forward();
 }
 
 void My_browser::on_refreshButton_click()
 {
-	m_currenttab->currrnt_widget()->reload();
+	m_currenttab->current_widget()->reload();
 }
 
 void My_browser::on_goButton_click()
@@ -22,7 +22,7 @@ void My_browser::on_goButton_click()
 	{
 		url = "http://" + url;
 	}
-	m_currenttab->currrnt_widget()->load(QUrl(url));//在当前页面载入
+	m_currenttab->current_widget()->load(QUrl(url));//在当前页面载入
 }
 
 void My_browser::webviewLoding(int progress)
@@ -51,14 +51,17 @@ void My_browser::webviewLoding(int progress)
 void My_browser::recive_url_fromhistory(const QUrl& url)
 {
 	m_currenttab->createTabWebView();   //创建一个空的标签页
-	m_currenttab->currrnt_widget()->load(url);
+	m_currenttab->current_widget()->load(url);
 }
 void My_browser::webview_History(QString& s,QUrl& url)
 {
 	//添加历史记录
 	m_history->addHistoryAction(s,url);
 }
-
+void My_browser::setlinetext(QUrl url)
+{
+	line->setText(url.toString());
+}
 void My_browser::browser_exit()
 {
 	close();

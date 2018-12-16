@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_webTabWidget_t {
-    QByteArrayData data[10];
-    char stringdata0[102];
+    QByteArrayData data[9];
+    char stringdata0[99];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,17 +35,16 @@ QT_MOC_LITERAL(0, 0, 12), // "webTabWidget"
 QT_MOC_LITERAL(1, 13, 12), // "loadpressnum"
 QT_MOC_LITERAL(2, 26, 0), // ""
 QT_MOC_LITERAL(3, 27, 14), // "send_Title_url"
-QT_MOC_LITERAL(4, 42, 8), // "QString&"
-QT_MOC_LITERAL(5, 51, 5), // "QUrl&"
-QT_MOC_LITERAL(6, 57, 11), // "CloseSingal"
-QT_MOC_LITERAL(7, 69, 9), // "startload"
-QT_MOC_LITERAL(8, 79, 10), // "currentUrl"
-QT_MOC_LITERAL(9, 90, 11) // "clearCookie"
+QT_MOC_LITERAL(4, 42, 11), // "CloseSingal"
+QT_MOC_LITERAL(5, 54, 9), // "startload"
+QT_MOC_LITERAL(6, 64, 10), // "currentUrl"
+QT_MOC_LITERAL(7, 75, 11), // "clearCookie"
+QT_MOC_LITERAL(8, 87, 11) // "doSomething"
 
     },
     "webTabWidget\0loadpressnum\0\0send_Title_url\0"
-    "QString&\0QUrl&\0CloseSingal\0startload\0"
-    "currentUrl\0clearCookie"
+    "CloseSingal\0startload\0currentUrl\0"
+    "clearCookie\0doSomething"
 };
 #undef QT_MOC_LITERAL
 
@@ -55,7 +54,7 @@ static const uint qt_meta_data_webTabWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,24 +62,30 @@ static const uint qt_meta_data_webTabWidget[] = {
        5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   44,    2, 0x06 /* Public */,
-       3,    2,   47,    2, 0x06 /* Public */,
-       6,    0,   52,    2, 0x06 /* Public */,
-       7,    0,   53,    2, 0x06 /* Public */,
-       8,    1,   54,    2, 0x06 /* Public */,
+       1,    1,   49,    2, 0x06 /* Public */,
+       3,    2,   52,    2, 0x06 /* Public */,
+       4,    0,   57,    2, 0x06 /* Public */,
+       5,    0,   58,    2, 0x06 /* Public */,
+       6,    1,   59,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    1,   57,    2, 0x0a /* Public */,
+       7,    1,   62,    2, 0x0a /* Public */,
+
+ // methods: name, argc, parameters, tag, flags
+       8,    0,   65,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, 0x80000000 | 4, 0x80000000 | 5,    2,    2,
+    QMetaType::Void, QMetaType::QString, QMetaType::QUrl,    2,    2,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 5,    2,
+    QMetaType::Void, QMetaType::QUrl,    2,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Bool,    2,
+
+ // methods: parameters
+    QMetaType::Void,
 
        0        // eod
 };
@@ -97,6 +102,7 @@ void webTabWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 3: _t->startload(); break;
         case 4: _t->currentUrl((*reinterpret_cast< QUrl(*)>(_a[1]))); break;
         case 5: _t->clearCookie((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 6: _t->doSomething(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -109,7 +115,7 @@ void webTabWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
             }
         }
         {
-            typedef void (webTabWidget::*_t)(QString & , QUrl & );
+            typedef void (webTabWidget::*_t)(QString , QUrl );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&webTabWidget::send_Title_url)) {
                 *result = 1;
                 return;
@@ -130,7 +136,7 @@ void webTabWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
             }
         }
         {
-            typedef void (webTabWidget::*_t)(QUrl & );
+            typedef void (webTabWidget::*_t)(QUrl );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&webTabWidget::currentUrl)) {
                 *result = 4;
                 return;
@@ -164,13 +170,13 @@ int webTabWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }
@@ -183,7 +189,7 @@ void webTabWidget::loadpressnum(int _t1)
 }
 
 // SIGNAL 1
-void webTabWidget::send_Title_url(QString & _t1, QUrl & _t2)
+void webTabWidget::send_Title_url(QString _t1, QUrl _t2)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
@@ -202,7 +208,7 @@ void webTabWidget::startload()
 }
 
 // SIGNAL 4
-void webTabWidget::currentUrl(QUrl & _t1)
+void webTabWidget::currentUrl(QUrl _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 4, _a);
